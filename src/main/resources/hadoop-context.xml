@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:hdp="http://www.springframework.org/schema/hadoop"
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd">
+
+
+    <hdp:configuration  resources="file:///etc/hadoop/conf/core-site.xml,
+                                   file:///etc/hadoop/conf/hadoop-policy.xml,
+                                   file:///etc/hadoop/conf/hdfs-site.xml,
+                                   file:///etc/hadoop/conf/mapred-site.xml,
+                                   file:///etc/hadoop/conf/yarn-site.xml,
+                                   file:///etc/hadoop/conf/capacity-scheduler.xml">
+
+        mapreduce.job.queuename=psgetl
+    </hdp:configuration>
+
+
+    <hdp:job    id="job"
+                input-path="/user/psgetl/data/"
+                output-path="/user/psgetl/output"
+                mapper="ua.jug.yermilov.hadoop.example.ExampleMapper"
+                reducer="ua.jug.yermilov.hadoop.example.ExampleReducer"
+                jar-by-class="ua.jug.yermilov.hadoop.example.AppManager" />
+
+</beans>
